@@ -20,14 +20,13 @@
     window.addEventListener('load', function() {
       const qrId = getParam('utm_content') || 'unknown';
 
-      // GA4にスキャンイベントを送信
-      gtag('event', 'qr_scan', {
-        qr_id: qrId,
-        destination: 'form'
+      // GA4イベント送信
+      gtag('event', 'qr_redirect', {
+        qr_id: qrId
       });
-
+      
       // Googleスプレッドシートに記録
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbwVBimO0vJTvdUOqeWv4LHsrxFhY6TU-rQQ1HvD8kIWO-a4yFE-1rtsUDBy3yTXr4LjKw/exec';
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbyuVZnPHZDIiA1m6zBl8--hrn__-eN7N84tTBNv_JOTMdjHP0DwasBnmM9dxUy2aYBLIg/exec';
       fetch(scriptUrl + '?qr_id=' + encodeURIComponent(qrId) + '&type=scan').catch(function(){});
 
       // UTMパラメータをqr.htmlに引き継いでリダイレクト
